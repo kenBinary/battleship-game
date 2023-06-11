@@ -1,14 +1,15 @@
-const ship = (shipLength) => {
-    let thisShipLength = shipLength;
+const ship = (pShipLength, pShipType) => {
+    let shipLength = pShipLength;
     let hits = 0;
+    let shipType = pShipType;
     function hit() {
         hits += 1;
         return isSunk();
     }
     function isSunk() {
-        return (hits >= thisShipLength) ? true : false;
+        return (hits >= shipLength) ? true : false;
     }
-    return { hit, isSunk }
+    return { hit, isSunk, shipType, shipLength }
 }
 export default ship;
 // five types of ship
