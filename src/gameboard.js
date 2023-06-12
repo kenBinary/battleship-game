@@ -14,22 +14,33 @@ const gameBoard = () => {
             case "horizontal":
                 let horOccupancy = x;
                 for (let x = 0; x < shipObject.shipLength; x++) {
-                    gameBoard[horOccupancy][y] = shipObject.shipType;
+                    gameBoard[y][horOccupancy] = shipObject.shipType;
                     horOccupancy++;
                 }
-                return gameBoard[x + (shipObject.shipLength - 1)][y];
+                return [gameBoard[x][y], gameBoard[x][y + 1], gameBoard[x][y + 2]];
             case "vertical":
-                let verOccupancy = y;
-                for (let y = 0; y < shipObject.shipLength; y++) {
-                    gameBoard[x][verOccupancy] = shipObject.shipType;
-                    verOccupancy++;
+                let varOccupancy = y;
+                for (let z = 0; z < shipObject.shipLength; z++) {
+                    gameBoard[varOccupancy][y] = shipObject.shipType;
+                    varOccupancy++;
                 }
-                return gameBoard[x][y + shipObject.shipLength-1];
+                return [gameBoard[x][y], gameBoard[x + 1][y], gameBoard[x + 2][y]];
             default:
                 return false;
         }
     }
-    return { placeShip }
+    function receiveAttack(x, y) {
+        if (gameBoard[x][y] !== "") {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    function getGameBoard() {
+        return gameBoard;
+    }
+    return { placeShip, receiveAttack, getGameBoard }
 }
 export default gameBoard;
 // *Gameboard factory
