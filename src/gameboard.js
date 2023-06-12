@@ -1,5 +1,9 @@
 const gameBoard = () => {
     let gameBoard = [];
+    let missedAttacks = [];
+    let shipsDestroyed = 0;
+    let shipsPlaced = 0;
+
     function createGameBoard() {
         for (let x = 0; x < 10; x++) {
             gameBoard[x] = new Array();
@@ -17,6 +21,7 @@ const gameBoard = () => {
                     gameBoard[y][horOccupancy] = shipObject.shipType;
                     horOccupancy++;
                 }
+                shipsPlaced++;
                 return [gameBoard[x][y], gameBoard[x][y + 1], gameBoard[x][y + 2]];
             case "vertical":
                 let varOccupancy = y;
@@ -24,23 +29,39 @@ const gameBoard = () => {
                     gameBoard[varOccupancy][y] = shipObject.shipType;
                     varOccupancy++;
                 }
+                shipsPlaced++;
                 return [gameBoard[x][y], gameBoard[x + 1][y], gameBoard[x + 2][y]];
             default:
                 return false;
         }
     }
-    function receiveAttack(x, y) {
+    function receiveAttack(x, y, ship) {
         if (gameBoard[x][y] !== "") {
+            let isSunk = ship.hit();
+            if (isSunk) {
+                shipsDestroyed++;
+            }
             return true
         }
         else {
+            missedAttacks.push({ trackedX: x, trackedY: y })
+            gameBoard[x][y] = "missed";
             return false
         }
+    }
+    function allShipsDestroyed() {
+        return (shipsDestroyed >= shipsPlaced) ? true : false;
     }
     function getGameBoard() {
         return gameBoard;
     }
-    return { placeShip, receiveAttack, getGameBoard }
+    function getMissedAttacks() {
+        return missedAttacks;
+    }
+    function getNumOfShipsPlaced(params) {
+        return shipsPlaced;
+    }
+    return { placeShip, receiveAttack, getGameBoard, getMissedAttacks, getNumOfShipsPlaced, allShipsDestroyed }
 }
 export default gameBoard;
 // *Gameboard factory
