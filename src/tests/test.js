@@ -1,14 +1,15 @@
-const ship = (pShipLength, pShipType) => {
-    let shipLength = pShipLength;
-    let hits = 0;
-    function hit() {
-        hits += 1;
-        return isSunk();
+const testFactory = () => {
+    let number = 5;
+    function add() {
+        number = number + 5;
     }
-    function isSunk() {
-        return (hits >= shipLength) ? true : false;
+    function getNumber() {
+        return number;
     }
-    return { hit, isSunk }
+    return { add, getNumber }
 }
 
-let x = ship(3);
+let x = testFactory();
+console.log(x.getNumber())
+x.add();
+console.log(x.getNumber())
