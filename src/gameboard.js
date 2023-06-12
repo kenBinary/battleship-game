@@ -44,9 +44,9 @@ const gameBoard = () => {
             return true
         }
         else {
-            missedAttacks.push({ trackedX: x, trackedY: y })
+            missedAttacks.push([x, y]);
             gameBoard[x][y] = "missed";
-            return false
+            return false;
         }
     }
     function allShipsDestroyed() {

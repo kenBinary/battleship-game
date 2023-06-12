@@ -1,20 +1,5 @@
-// const testFactory = () => {
-//     let number = 5;
-//     function add() {
-//         number = number + 5;
-//     }
-//     function getNumber() {
-//         return number;
-//     }
-//     return { add, getNumber }
-// }
+let x = [[2, 3], [4, 5], [6, 7], [1, 2]]
 
-// const newFactory = testFactory();
-// console.log(newFactory.getNumber())
-// function add(someObject) {
-//     someObject.add()
-// }
-
-// add(newFactory);
-
-// // console.log(newFactory.getNumber());
+function isNestedArrayInArray(arr, target) {
+    return arr.some(subArray => subArray.length === target.length && subArray.every((value, index) => value === target[index]));
+}

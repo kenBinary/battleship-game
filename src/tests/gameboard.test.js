@@ -1,4 +1,3 @@
-import { experiments } from "webpack";
 import gameBoard from "../gameboard";
 import ship from "../ship";
 const newGameBoard = gameBoard();
@@ -62,5 +61,18 @@ test("check if all ships from gameboard are not destroyed", () => {
     sGameBoard.placeShip(1, 1, ship2, "vertical");
     sGameBoard.receiveAttack(1, 1, ship2);
     expect(sGameBoard.allShipsDestroyed()).toBe(false)
+});
+
+test("check if missed shots are correct ", () => {
+    const sGameBoard = gameBoard();
+    const ship1 = ship(2, "a");
+    const ship2 = ship(2, "c");
+    sGameBoard.placeShip(0, 0, ship1, "horizontal");
+    sGameBoard.placeShip(1, 1, ship2, "vertical");
+    sGameBoard.receiveAttack(2, 2, ship1);
+    sGameBoard.receiveAttack(2, 3, ship1);
+    sGameBoard.receiveAttack(1, 5, ship2);
+    sGameBoard.receiveAttack(2, 5, ship2);
+    expect(sGameBoard.getMissedAttacks()).toEqual([[2, 2], [2, 3], [1, 5], [2, 5]])
 });
 
