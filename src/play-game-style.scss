@@ -1,0 +1,41 @@
+// id="player-name
+// id="computer-name
+// id="player-gameboard
+// id="computer-gameboard
+// id="turn-indicator"
+* {
+    box-sizing: border-box;
+}
+.game-start {
+    display: flex;
+    flex-grow: 1;
+    padding: 0.3rem;
+    height: 100vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 5rem;
+    * {
+        outline: 1px solid black;
+    }
+}
+#player-name,
+#computer-name {
+    width: 45%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#player-gameboard,
+#computer-gameboard {
+    width: 45%;
+    height: 80%;
+}
+#turn-indicator {
+    background-color: yellow;
+    width: 90%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
