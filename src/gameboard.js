@@ -16,15 +16,15 @@ const gameBoard = () => {
     function placeShip(x, y, shipObject, orientation) {
         switch (orientation) {
             case "horizontal":
-                let horOccupancy = x;
-                for (let x = 0; x < shipObject.shipLength; x++) {
-                    gameBoard[y][horOccupancy] = shipObject.shipType;
+                let horOccupancy = y;
+                for (let i = 0; i < shipObject.shipLength; i++) {
+                    gameBoard[x][horOccupancy] = shipObject.shipType;
                     horOccupancy++;
                 }
                 shipsPlaced++;
                 return [gameBoard[x][y], gameBoard[x][y + 1], gameBoard[x][y + 2]];
             case "vertical":
-                let varOccupancy = y;
+                let varOccupancy = x;
                 for (let z = 0; z < shipObject.shipLength; z++) {
                     gameBoard[varOccupancy][y] = shipObject.shipType;
                     varOccupancy++;

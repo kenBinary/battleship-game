@@ -12,42 +12,39 @@
     }
 }
 @mixin shipImageStyle() {
-    background-position: center;
-    background-size: 100%;
-    background-repeat: no-repeat;
+    width: 100%;
+    height: 23%;
+    transform: rotate(270deg);
 }
 .ship-options {
     width: 30%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
     > div {
         outline: 1px solid yellow;
     }
     #battleship {
-        background-image: url("./assets/battleship.png");
         @include shipImageStyle();
         grid-column: 1/2;
     }
     #cruiser {
-        background-image: url("./assets/cruiser.png");
         @include shipImageStyle();
         grid-column: 3/4;
     }
     #submarine {
-        background-image: url("./assets/submarine.png");
         @include shipImageStyle();
         grid-column: 2/3;
         grid-row: 2/3;
     }
     #carrier {
-        background-image: url("./assets/carrier.png");
         @include shipImageStyle();
         grid-column: 1/2;
         grid-row: 3/4;
     }
     #destroyer {
-        background-image: url("./assets/destroyer.png");
         @include shipImageStyle();
         grid-column: 3/4;
         grid-row: 3/4;
