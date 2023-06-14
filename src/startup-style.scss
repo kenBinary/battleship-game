@@ -16,6 +16,9 @@
     height: 23%;
     transform: rotate(270deg);
 }
+.ship-placeholder{
+    background-color: yellow;
+}
 .ship-options {
     width: 30%;
     display: grid;
@@ -25,6 +28,9 @@
     justify-content: center;
     > div {
         outline: 1px solid yellow;
+    }
+    .horizontal{
+        transform: rotate(360deg) !important;
     }
     #battleship {
         @include shipImageStyle();
@@ -70,10 +76,13 @@
         outline: 1px solid blue;
         width: 90%;
         height: 75%;
+        display: grid;
+        grid-template-columns: repeat(10,1fr);
+        grid-template-rows: repeat(10,1fr);
     }
     .rotate-ship,
-    .start-game {
-        width: 40%;
+    .start-game,.reset-ships {
+        width: 25%;
         height: 6%;
     }
 }
