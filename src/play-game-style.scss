@@ -39,6 +39,9 @@
         justify-content: center;
         cursor: crosshair;
     }
+    > div:hover{
+        background-color: green;
+    }
 }
 #turn-indicator {
     background-color: yellow;

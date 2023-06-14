@@ -1,6 +1,6 @@
-const player = (pName) => {
+const player = (pName, pIsTurn = true) => {
     let name = pName;
-    let isTurn = false;
+    let isTurn = pIsTurn;
     function playTurn(x, y, pGameBoard, pShip) {
         pGameBoard.receiveAttack(x, y, pShip);
     }
@@ -10,6 +10,10 @@ const player = (pName) => {
     function getName() {
         return name;
     }
-    return { getTurn, getName };
+    function setTurn(boolean) {
+        isTurn = boolean;
+    }
+
+    return { getTurn, getName, playTurn, setTurn };
 }
 export default player;

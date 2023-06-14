@@ -1,7 +1,7 @@
 import player from "./player";
 
 const computer = () => {
-    const { getTurn, getName } = player("Computer");
+    const { getTurn, getName, setTurn } = player("Computer", false);
     function isNestedArrayInArray(arr, target) {
         return arr.some(subArray => subArray.length === target.length && subArray.every((value, index) => value === target[index]));
     }
@@ -25,6 +25,6 @@ const computer = () => {
             }
         }
     }
-    return { getTurn, getName, playTurn }
+    return { getTurn, getName, playTurn, setTurn }
 }
 export default computer;
