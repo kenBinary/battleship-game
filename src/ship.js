@@ -1,8 +1,9 @@
-const ship = (pShipLength, pShipType) => {
+const ship = (pShipLength, pShipType, pShipOrientation) => {
     let shipLength = pShipLength;
     let hits = 0;
     let shipType = pShipType;
     let shipCoordinates = [];
+    let shipOrientation = pShipOrientation;
     function hit() {
         hits += 1;
         return isSunk();
@@ -16,7 +17,10 @@ const ship = (pShipLength, pShipType) => {
     function getCoordinates() {
         return shipCoordinates;
     }
-    return { hit, isSunk, shipType, shipLength, addCoordinate, getCoordinates }
+    function getOrientation() {
+        return shipOrientation;
+    }
+    return { hit, isSunk, shipType, shipLength, addCoordinate, getCoordinates, getOrientation }
 }
 export default ship;
 // five types of ship

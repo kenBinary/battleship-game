@@ -32,7 +32,7 @@ function newGame(playerName, ships) {
     const newPlayer = player(playerName);
     const pGameBoard = gameBoard();
     for (const shipKey in ships) {
-        const newShip = ship(ships[shipKey].length,ships[shipKey].shipType);
+        const newShip = ship(ships[shipKey].length, ships[shipKey].shipType, ships[shipKey].alignment);
         pGameBoard.placeShip(parseInt(ships[shipKey].axis.charAt(0)), parseInt(ships[shipKey].axis.charAt(1)), newShip, ships[shipKey].alignment);
     }
     // let y = pGameBoard.getShipsPlaced();

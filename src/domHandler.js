@@ -4,26 +4,118 @@ import cruiser from "../src/assets/cruiser.png";
 import destroyer from "../src/assets/destroyer.png";
 import submarine from "../src/assets/submarine.png";
 
+let battleshipExists;
+let cruiserExists = false;
+let submarineExists = false;
+let carrierExists = false;
+let destroyerExists = false;
+
+function shipExists(ship) {
+    if (battleshipExists !== ship) {
+        battleshipExists = ship;
+        return true
+    }
+    // switch (ship) {
+    //     case "battleship":
+    //         battleshipExists = true;
+    //         return battleshipExists;
+    //     case "cruiser":
+    //         cruiserExists = true;
+    //         return cruiserExists;
+    //     case "submarine":
+    //         submarineExists = true;
+    //         return submarineExists;
+    //     case "carrier":
+    //         carrierExists = true;
+    //         return carrierExists;
+    //     case "destroyer":
+    //         destroyerExists = true;
+    //         return destroyerExists;
+    //     default:
+    //         return false;
+    // }
+}
 function updateGameBoard(pGameBoard, pGameBoardType) {
+
     const gameBoardElement = document.querySelector(`#${pGameBoardType}`);
     pGameBoard.getGameBoard().forEach((row, index, array) => {
         let x = index;
         let m = 0;
         row.forEach((cell, index, array) => {
-            // console.log(pGameBoard.getShipsPlaced()[index]);
+
             let y = index;
             const newCell = document.createElement("div");
             newCell.classList.add("placement-cell");
-            // if (cell !== "" && m <1) {
-            //     const newElement = shipTypeImage(cell);
-            //     newCell.appendChild(newElement);
-            //     m++;
-            // }
-            if (shipTypeImage(cell) && m < 1) {
-                const newElement = shipTypeImage(cell);
-                newCell.appendChild(newElement);
-                m++;
+            if (cell !== "") {
+                newCell.textContent = cell;
             }
+            // if (shipTypeImage(cell) && !battleshipExists) {
+            //     console.log(cell)
+            //     let orientation;
+            //     pGameBoard.getShipsPlaced().forEach(ship => {
+            //         if (ship.shipType === cell) {
+            //             orientation = ship.getOrientation();
+            //         }
+            //     });
+            //     const newElement = shipTypeImage(cell);
+            //     newElement.classList.add(`${orientation}-ship`);
+            //     newCell.appendChild(newElement);
+            //     battleshipExists = true;
+            // }
+            // else if (shipTypeImage(cell) && !cruiserExists) {
+            //     console.log(cell)
+            //     let orientation;
+            //     pGameBoard.getShipsPlaced().forEach(ship => {
+            //         if (ship.shipType === cell) {
+            //             orientation = ship.getOrientation();
+            //         }
+            //     });
+            //     const newElement = shipTypeImage(cell);
+            //     newElement.classList.add(`${orientation}-ship`);
+            //     newCell.appendChild(newElement);
+            //     cruiserExists = true;
+            // }
+            // else if (shipTypeImage(cell) && !submarineExists) {
+            //     console.log(cell)
+            //     let orientation;
+            //     pGameBoard.getShipsPlaced().forEach(ship => {
+            //         if (ship.shipType === cell) {
+            //             orientation = ship.getOrientation();
+            //         }
+            //     });
+            //     const newElement = shipTypeImage(cell);
+            //     newElement.classList.add(`${orientation}-ship`);
+            //     newCell.appendChild(newElement);
+            //     submarineExists = true;
+            // }
+            // else if (shipTypeImage(cell) && !carrierExists) {
+            //     console.log(cell)
+            //     let orientation;
+            //     pGameBoard.getShipsPlaced().forEach(ship => {
+            //         if (ship.shipType === cell) {
+            //             orientation = ship.getOrientation();
+            //         }
+            //     });
+            //     const newElement = shipTypeImage(cell);
+            //     newElement.classList.add(`${orientation}-ship`);
+            //     newCell.appendChild(newElement);
+            //     carrierExists = true;
+            // }
+            // else if (shipTypeImage(cell) && !destroyerExists) {
+            //     console.log(cell)
+            //     let orientation;
+            //     pGameBoard.getShipsPlaced().forEach(ship => {
+            //         if (ship.shipType === cell) {
+            //             orientation = ship.getOrientation();
+            //         }
+            //     });
+            //     const newElement = shipTypeImage(cell);
+            //     newElement.classList.add(`${orientation}-ship`);
+            //     newCell.appendChild(newElement);
+            //     destroyerExists = true;
+            // }
+
+
             newCell.setAttribute("data-coordinate", `${x}${y}`);
             newCell.classList.add("coordinate-cell");
             gameBoardElement.appendChild(newCell);
