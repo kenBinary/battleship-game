@@ -1,13 +1,15 @@
 import html from "./startup.html";
 import "./startup-style.scss";
+import loadPlayGame from "./loadPlayGame";
+import newGame from "./gameHandler";
+
 function loadStartup() {
     let currentDraggedItem;
     const container = document.querySelector(".container");
     container.innerHTML = html;
     const ships = document.querySelectorAll(".ship");
     let isHorizontal = false;
-    // const x = document.querySelector("data-placement-coordinate=\"55\"");
-
+    let shipObjects = {};
     ships.forEach(element => {
         element.addEventListener('dragstart', (e) => {
             currentDraggedItem = e.target.id;
@@ -26,14 +28,12 @@ function loadStartup() {
                 let coordinate = e.target.getAttribute("data-placement-coordinate");
                 let shipLength = getShipLength(currentDraggedItem);
                 shipPlaceHolder(coordinate, isHorizontal, shipLength);
-                // console.log("enter")
             });
             newCell.addEventListener('dragleave', (e) => {
                 e.preventDefault();
                 let coordinate = e.target.getAttribute("data-placement-coordinate");
                 let shipLength = getShipLength(currentDraggedItem);
                 shipPlaceHolder(coordinate, isHorizontal, shipLength);
-                // console.log("leave")
             });
             newCell.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -43,24 +43,44 @@ function loadStartup() {
                 e.preventDefault();
                 e.dataTransfer.dropEffect = "move";
                 const shipType = e.dataTransfer.getData("text/plain");
-                console.log(shipType)
+                let coordinate = e.target.getAttribute("data-placement-coordinate");
+                let shipLength = getShipLength(currentDraggedItem);
+                shipObjects[shipType] = { axis: coordinate, length: shipLength, alignment: (isHorizontal) ? "horizontal" : "vertical" };
+                const shipElement = document.querySelector(`#${shipType}`);
+                shipElement.remove();
             });
             newCell.setAttribute("data-placement-coordinate", `${i}${x}`);
             placementGrid.appendChild(newCell);
         }
     }
-    // const x = document.querySelector("[data-placement-coordinate=\"55\"]");
-    // console.log(x.getAttribute("data-placement-coordinate"))
     const rotate = document.querySelector(".rotate-ship");
     rotate.addEventListener('click', () => {
         isHorizontal = rotateShips();
     });
-
     // start game
     // -get player name
     // get coordinate and alignment of placed ships
     // initialize new game with these data
-
+    const startGame = document.querySelector(".start-game");
+    startGame.addEventListener('click', () => {
+        const name = document.querySelector("#name-input");
+        if (name.value === "") {
+            alert("Enter a Name");
+        }
+        else {
+            // console.log(shipObjects)
+            // console.log(name.value)
+            new Promise(function (resolve) {
+                container.innerHTML = "";
+                resolve("done");
+            }).then(() => {
+                loadPlayGame();
+            })
+                .then(() => {
+                    newGame(name.value, shipObjects);
+                });
+        }
+    });
 }
 function shipPlaceHolder(coordinate, isHorizontal, shipLength) {
     if (isHorizontal) {
@@ -68,7 +88,6 @@ function shipPlaceHolder(coordinate, isHorizontal, shipLength) {
         let y = parseInt(coordinate.charAt(1));
         for (let i = 0; i < shipLength; i++) {
             const cell = document.querySelector(`[data-placement-coordinate="${x}${y}"]`);
-            // cell.classList.add("ship-placeholder");
             cell.classList.toggle("ship-placeholder");
             y++;
         }
@@ -79,18 +98,9 @@ function shipPlaceHolder(coordinate, isHorizontal, shipLength) {
         for (let i = 0; i < shipLength; i++) {
             const cell = document.querySelector(`[data-placement-coordinate="${x}${y}"]`);
             cell.classList.toggle("ship-placeholder");
-            // cell.classList.add("ship-placeholder");
             x++;
         }
     }
-}
-function removeShipPlaceholder() {
-    const placementCells = document.querySelectorAll(".placement-cell");
-    placementCells.forEach(cell => {
-        if (cell.classList.contains("ship-placeholder")) {
-            cell.classList.toggle("ship-placeholder");
-        }
-    });
 }
 function getShipLength(shipType) {
     switch (shipType) {
