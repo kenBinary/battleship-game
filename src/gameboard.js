@@ -21,7 +21,6 @@ const gameBoard = () => {
         switch (orientation) {
             case "horizontal":
                 let horOccupancy = y;
-                let b = 0;
                 for (let i = 0; i < shipObject.shipLength; i++) {
                     gameBoard[x][horOccupancy] = shipObject.shipType;
                     let keyCoordinates = `${x}${horOccupancy}`;

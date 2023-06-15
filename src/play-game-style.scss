@@ -12,6 +12,27 @@
     font-family: myFont;
     letter-spacing: 1px;
 }
+.placed-ship {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    &.battleship {
+        width: 250px;
+    }
+    &.cruiser,
+    &.submarine {
+        width: 185px;
+    }
+    &.carrier {
+        width: 310px;
+    }
+    &.destroyer {
+        width: 125px;
+    }
+}
 .game-start {
     height: 100vh;
     display: grid;

@@ -2,6 +2,68 @@
     font-family: myFont;
     src: url("./assets/commando.ttf");
 }
+.invalid-ship-placeholder {
+    background-color: red;
+    opacity: 50%;
+}
+@mixin vertical() {
+    transform: rotate(-90deg);
+}
+@mixin absolutePosition($top: 0,$bottom :0 ,$left:0,$right:0){
+    top: $top !important;
+    bottom: $bottom !important;
+    left: $left !important;
+    right: $right !important;
+}
+.vertical {
+    @include vertical();
+    &.battleship {
+        @include absolutePosition(75px,0px,-85px,0px);
+        width: 230px !important;
+    }
+    &.cruiser{
+        @include absolutePosition(65px,0px,-60px,0px);
+        width: 180px !important;
+    }
+    &.submarine {
+        @include absolutePosition(70px,0px,-60px,0px);
+        width: 170px !important;
+    }
+    &.carrier {
+        @include absolutePosition(105px,0px,-125px,0px);
+        width: 300px !important;
+    }
+    &.destroyer {
+        @include absolutePosition(35px,0px,-30px,0px);
+        width: 115px !important;
+    }
+}
+
+.placement-cell {
+    position: relative;
+    z-index: 50;
+}
+.placed-element {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    &.battleship {
+        width: 250px;
+    }
+    &.cruiser,
+    &.submarine {
+        width: 210px;
+    }
+    &.carrier {
+        width: 330px;
+    }
+    &.destroyer {
+        width: 150px;
+    }
+}
 * {
     box-sizing: border-box;
     font-family: myFont;
@@ -53,6 +115,7 @@
         padding: 1rem;
     }
     .placement-grid {
+        z-index: 50;
         border: 1px solid #081e2b;
         width: 90%;
         height: 75%;
@@ -70,7 +133,7 @@
         height: 6%;
         cursor: pointer;
         background-color: #eef6fc;
-        &:hover{
+        &:hover {
             background-color: #c1c8cd;
         }
     }
