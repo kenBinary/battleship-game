@@ -68,8 +68,6 @@ function loadStartup() {
             alert("Enter a Name");
         }
         else {
-            // console.log(shipObjects)
-            // console.log(name.value)
             new Promise(function (resolve) {
                 container.innerHTML = "";
                 resolve("done");
