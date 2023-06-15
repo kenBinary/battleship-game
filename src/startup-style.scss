@@ -1,5 +1,12 @@
+@font-face {
+    font-family: myFont;
+    src: url("./assets/commando.ttf");
+}
 * {
     box-sizing: border-box;
+    font-family: myFont;
+    letter-spacing: 1px;
+    color: #081e2b;
 }
 .game-setup {
     display: flex;
@@ -7,53 +14,24 @@
     padding: 0.3rem;
     height: 100vh;
     column-gap: 1rem;
-    * {
-        outline: 1px solid black;
-    }
 }
 @mixin shipImageStyle() {
-    width: 100%;
-    height: 23%;
-    transform: rotate(270deg);
+    width: 70%;
 }
 .ship-placeholder {
-    background-color: yellow;
+    background-color: #ccd4da;
 }
 .ship-options {
     width: 30%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
     align-items: center;
-    justify-content: center;
-    > div {
-        outline: 1px solid yellow;
-    }
-    .horizontal {
-        transform: rotate(360deg) !important;
-    }
-    #battleship {
+    justify-items: center;
+    > img {
         @include shipImageStyle();
-        grid-column: 1/2;
     }
-    #cruiser {
-        @include shipImageStyle();
-        grid-column: 3/4;
-    }
-    #submarine {
-        @include shipImageStyle();
-        grid-column: 2/3;
-        grid-row: 2/3;
-    }
-    #carrier {
-        @include shipImageStyle();
-        grid-column: 1/2;
-        grid-row: 3/4;
-    }
-    #destroyer {
-        @include shipImageStyle();
-        grid-column: 3/4;
-        grid-row: 3/4;
+    > #destroyer {
+        width: 60%;
     }
 }
 .ship-placement {
@@ -71,19 +49,29 @@
         width: 100%;
         height: 8%;
         text-align: center;
+        border: 1px solid black;
+        padding: 1rem;
     }
     .placement-grid {
-        outline: 1px solid blue;
+        border: 1px solid #081e2b;
         width: 90%;
         height: 75%;
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         grid-template-rows: repeat(10, 1fr);
+        > div {
+            border: 1px solid #081e2b;
+        }
     }
     .rotate-ship,
     .start-game,
     .reset-ships {
         width: 25%;
         height: 6%;
+        cursor: pointer;
+        background-color: #eef6fc;
+        &:hover{
+            background-color: #c1c8cd;
+        }
     }
 }

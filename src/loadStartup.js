@@ -2,10 +2,10 @@ import html from "./startup.html";
 import "./startup-style.scss";
 import loadPlayGame from "./loadPlayGame";
 import newGame from "./gameHandler";
-
 function loadStartup() {
     let currentDraggedItem;
     const container = document.querySelector(".container");
+    container.classList.toggle("game-setup");
     container.innerHTML = html;
     const ships = document.querySelectorAll(".ship");
     let isHorizontal = false;
@@ -72,6 +72,7 @@ function loadStartup() {
                 container.innerHTML = "";
                 resolve("done");
             }).then(() => {
+                container.classList.toggle("game-setup");
                 loadPlayGame();
             })
                 .then(() => {
