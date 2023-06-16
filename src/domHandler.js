@@ -3,7 +3,8 @@ import carrier from "../src/assets/carrier.png";
 import cruiser from "../src/assets/cruiser.png";
 import destroyer from "../src/assets/destroyer.png";
 import submarine from "../src/assets/submarine.png";
-import loadPlayGame from "./loadPlayGame";
+import hitImage from "../src/assets/hit.png";
+import missImage from "../src/assets/miss.png";
 let shipsPlaced = [];
 let shipsPlaceable = ["battleship", "carrier", "cruiser", "destroyer", "submarine"];
 function updateGameBoard(pGameBoard, pGameBoardType) {
@@ -29,9 +30,9 @@ function updateGameBoard(pGameBoard, pGameBoardType) {
                     newCell.appendChild(newElement);
                     shipsPlaced.push(cell);
                 }
-                else{
-                    newCell.textContent = cell;
-                }
+                // else{
+                //     newCell.textContent = cell;
+                // }
             }
             newCell.setAttribute("data-coordinate", `${x}${y}`);
             newCell.classList.add("coordinate-cell");
@@ -89,4 +90,17 @@ function toggleGameBoard() {
 function showWinner(winnerName) {
     alert(`${winnerName} has won the game`)
 }
-export { updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner, toggleGameBoard }
+function displayHitShip(cellElement,isHit) {
+    let newImage = new Image();
+    if (isHit) {
+        newImage.src = hitImage;
+        newImage.classList.add("hit");
+        cellElement.appendChild(newImage);
+    }
+    else{
+        newImage.src = missImage;
+        newImage.classList.add("miss");
+        cellElement.appendChild(newImage);
+    }
+}
+export {displayHitShip, updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner, toggleGameBoard }

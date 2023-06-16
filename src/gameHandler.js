@@ -44,27 +44,29 @@ function newGame(playerName, ships) {
     coordinateCells.forEach((cell) => {
         cell.addEventListener('click', (e) => {
             let x = e.target.getAttribute("data-coordinate");
+            let isHit;
+            console.log("bruh")
             if (newPlayer.getTurn()) {
-                cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
+                isHit = cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
+                newPlayer.setTurn(false);
+                domHandler.updateTurnDisplay(newComputer.getName());
+                domHandler.toggleGameBoard()
+                domHandler.displayHitShip(e.target, isHit);
                 if (cGameBoard.allShipsDestroyed()) {
                     domHandler.showWinner(newPlayer.getName());
                 }
-
-                newPlayer.setTurn(false);
-                console.log("player")
-                domHandler.updateTurnDisplay(newComputer.getName());
-                domHandler.toggleGameBoard()
             }
             else {
-                pGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
-                if (pGameBoard.allShipsDestroyed()) {
-                    domHandler.showWinner(newComputer.getName());
-                }
+                isHit = pGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
                 newPlayer.setTurn(true);
                 domHandler.updateTurnDisplay(newPlayer.getName());
                 domHandler.toggleGameBoard()
+                domHandler.displayHitShip(e.target, isHit);
+                if (pGameBoard.allShipsDestroyed()) {
+                    domHandler.showWinner(newComputer.getName());
+                }
             }
-        });
+        }, { once: true });
     });
 }
 export default newGame;
