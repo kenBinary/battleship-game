@@ -7,9 +7,9 @@ function loadStartup() {
     const container = document.querySelector(".container");
     container.classList.toggle("game-setup");
     container.innerHTML = html;
-    const ships = document.querySelectorAll(".ship");
     let isHorizontal = false;
     let shipObjects = {};
+    const ships = document.querySelectorAll(".ship");
     ships.forEach(element => {
         element.addEventListener('dragstart', (e) => {
             currentDraggedItem = e.target.id;
@@ -91,6 +91,7 @@ function loadStartup() {
         }
     });
 }
+
 function shipPlaceHolder(coordinate, isHorizontal, shipLength) {
     if (isHorizontal) {
         let initialY = parseInt(coordinate.charAt(1));

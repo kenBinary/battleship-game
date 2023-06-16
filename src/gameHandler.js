@@ -35,10 +35,6 @@ function newGame(playerName, ships) {
         const newShip = ship(ships[shipKey].length, ships[shipKey].shipType, ships[shipKey].alignment);
         pGameBoard.placeShip(parseInt(ships[shipKey].axis.charAt(0)), parseInt(ships[shipKey].axis.charAt(1)), newShip, ships[shipKey].alignment);
     }
-    // let y = pGameBoard.getShipsPlaced();
-    // y.forEach(ship=>[
-    //     console.log(ship.shipType)
-    // ]);
     domHandler.updateGameBoard(pGameBoard, "player-gameboard")
 
     // updating the DOM
@@ -53,8 +49,11 @@ function newGame(playerName, ships) {
                 if (cGameBoard.allShipsDestroyed()) {
                     domHandler.showWinner(newPlayer.getName());
                 }
+
                 newPlayer.setTurn(false);
+                console.log("player")
                 domHandler.updateTurnDisplay(newComputer.getName());
+                domHandler.toggleGameBoard()
             }
             else {
                 pGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
@@ -63,7 +62,7 @@ function newGame(playerName, ships) {
                 }
                 newPlayer.setTurn(true);
                 domHandler.updateTurnDisplay(newPlayer.getName());
-
+                domHandler.toggleGameBoard()
             }
         });
     });
