@@ -12,7 +12,9 @@ import * as domHandler from "./domHandler";
 import ship from "./ship";
 import player from "./player";
 import computer from "./computer";
+import loadStartup from "./loadStartup";
 function newGame(playerName, ships) {
+    const container = document.querySelector(".container");
     const newComputer = computer();
     const cGameBoard = gameBoard();
     const cCarrier = ship(5, "c");
@@ -45,7 +47,6 @@ function newGame(playerName, ships) {
         cell.addEventListener('click', (e) => {
             let x = e.target.getAttribute("data-coordinate");
             let isHit;
-            console.log("bruh")
             if (newPlayer.getTurn()) {
                 isHit = cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
                 newPlayer.setTurn(false);
@@ -54,6 +55,13 @@ function newGame(playerName, ships) {
                 domHandler.displayHitShip(e.target, isHit);
                 if (cGameBoard.allShipsDestroyed()) {
                     domHandler.showWinner(newPlayer.getName());
+                    new Promise(function (resolve) {
+                        container.innerHTML = "";
+                        container.classList.toggle("game-start");
+                        resolve("done");
+                    }).then(() => {
+                        loadStartup()
+                    })
                 }
             }
             else {
@@ -63,6 +71,13 @@ function newGame(playerName, ships) {
                 domHandler.toggleGameBoard()
                 domHandler.displayHitShip(e.target, isHit);
                 if (pGameBoard.allShipsDestroyed()) {
+                    new Promise(function (resolve) {
+                        container.innerHTML = "";
+                        container.classList.toggle("game-start");
+                        resolve("done");
+                    }).then(() => {
+                        loadStartup()
+                    })
                     domHandler.showWinner(newComputer.getName());
                 }
             }

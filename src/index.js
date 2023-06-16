@@ -6,8 +6,8 @@ import "normalize.css";
 
 
 
-// loadStartup();
-loadGame();
+loadStartup();
+// loadGame();
 
 
 function loadGame() {

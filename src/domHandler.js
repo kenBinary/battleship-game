@@ -5,13 +5,12 @@ import destroyer from "../src/assets/destroyer.png";
 import submarine from "../src/assets/submarine.png";
 import hitImage from "../src/assets/hit.png";
 import missImage from "../src/assets/miss.png";
-let shipsPlaced = [];
-let shipsPlaceable = ["battleship", "carrier", "cruiser", "destroyer", "submarine"];
 function updateGameBoard(pGameBoard, pGameBoardType) {
+    let shipsPlaced = [];
+    let shipsPlaceable = ["battleship", "carrier", "cruiser", "destroyer", "submarine"];
     const gameBoardElement = document.querySelector(`#${pGameBoardType}`);
     pGameBoard.getGameBoard().forEach((row, index, array) => {
         let x = index;
-        let m = 0;
         row.forEach((cell, index, array) => {
             let y = index;
             const newCell = document.createElement("div");
@@ -30,9 +29,9 @@ function updateGameBoard(pGameBoard, pGameBoardType) {
                     newCell.appendChild(newElement);
                     shipsPlaced.push(cell);
                 }
-                // else{
-                //     newCell.textContent = cell;
-                // }
+                else {
+                    newCell.textContent = cell;
+                }
             }
             newCell.setAttribute("data-coordinate", `${x}${y}`);
             newCell.classList.add("coordinate-cell");
@@ -70,7 +69,6 @@ function shipTypeImage(shipType) {
             return false;
     }
 }
-
 function updatePlayerNames(firstPlayer, secondPlayer) {
     const firstPlayerName = document.querySelector("#player-name");
     const secondPlayerName = document.querySelector("#computer-name");
@@ -90,17 +88,17 @@ function toggleGameBoard() {
 function showWinner(winnerName) {
     alert(`${winnerName} has won the game`)
 }
-function displayHitShip(cellElement,isHit) {
+function displayHitShip(cellElement, isHit) {
     let newImage = new Image();
     if (isHit) {
         newImage.src = hitImage;
         newImage.classList.add("hit");
         cellElement.appendChild(newImage);
     }
-    else{
+    else {
         newImage.src = missImage;
         newImage.classList.add("miss");
         cellElement.appendChild(newImage);
     }
 }
-export {displayHitShip, updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner, toggleGameBoard }
+export { displayHitShip, updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner, toggleGameBoard }

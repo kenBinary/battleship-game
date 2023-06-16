@@ -85,9 +85,8 @@ function loadStartup() {
                 loadPlayGame();
             })
                 .then(() => {
-                    console.log(shipObjects)
                     newGame(name.value, shipObjects);
-                });
+            });
         }
     });
 }

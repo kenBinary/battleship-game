@@ -19,9 +19,10 @@ const computer = () => {
                 coordinate = randomCoordinate();
             }
             else {
-                console.log(coordinate);
-                gameBoard.receiveAttack(coordinate[0], coordinate[1], ship)
-                return true;
+                // console.log(coordinate);
+                // gameBoard.receiveAttack(coordinate[0], coordinate[1], ship)
+                return gameBoard.receiveAttack(coordinate[0], coordinate[1]);
+                // return true;
             }
         }
     }
