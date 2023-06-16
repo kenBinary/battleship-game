@@ -1,3 +1,4 @@
+import ship from "./ship";
 
 const gameBoard = () => {
     let gameBoard = [];
@@ -61,36 +62,11 @@ const gameBoard = () => {
             })
         });
         if (!isHit) {
-            // missedAttacks.push([x, y]);
             missedAttacks.push(`${x}${y}`);
             gameBoard[x][y] = "missed";
             return false;
         }
         return isHit;
-        // if (gameBoard[x][y] !== "") {
-        //     ships.forEach((ship) => {
-        //         ship.getCoordinates().forEach((element) => {
-        //             if (element === `${x}${y}`) {
-        //                 let isSunk = ship.hit();
-        //                 if (isSunk) {
-        //                     shipsDestroyed++;
-        //                 }
-        //                 return true
-        //                 console.log("hit!")
-        //             }
-        //         })
-        //     });
-        //     let isSunk = ship.hit();
-        //     if (isSunk) {
-        //         shipsDestroyed++;
-        //     }
-        //     return true
-        // }
-        // else {
-        //     missedAttacks.push([x, y]);
-        //     gameBoard[x][y] = "missed";
-        //     return false;
-        // }
     }
     function allShipsDestroyed() {
         return (shipsDestroyed >= shipsPlaced) ? true : false;

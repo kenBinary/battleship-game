@@ -46,41 +46,67 @@ function newGame(playerName, ships) {
     coordinateCells.forEach((cell) => {
         cell.addEventListener('click', (e) => {
             let x = e.target.getAttribute("data-coordinate");
-            let isHit;
-            if (newPlayer.getTurn()) {
-                isHit = cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
-                newPlayer.setTurn(false);
-                domHandler.updateTurnDisplay(newComputer.getName());
-                domHandler.toggleGameBoard()
-                domHandler.displayHitShip(e.target, isHit);
-                if (cGameBoard.allShipsDestroyed()) {
-                    domHandler.showWinner(newPlayer.getName());
-                    new Promise(function (resolve) {
-                        container.innerHTML = "";
-                        container.classList.toggle("game-start");
-                        resolve("done");
-                    }).then(() => {
-                        loadStartup()
-                    })
-                }
+            let isHit = cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
+            domHandler.updateTurnDisplay(newComputer.getName());
+            domHandler.displayHitShip(e.target, isHit);
+            let computerHit = newComputer.playTurn(pGameBoard);
+            domHandler.updateTurnDisplay(newPlayer.getName());
+            domHandler.displayHitShipComputer(computerHit[1], computerHit[0]);
+            if (cGameBoard.allShipsDestroyed()) {
+                domHandler.showWinner(newPlayer.getName());
+                new Promise(function (resolve) {
+                    container.innerHTML = "";
+                    container.classList.toggle("game-start");
+                    resolve("done");
+                }).then(() => {
+                    loadStartup()
+                })
             }
-            else {
-                isHit = pGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
-                newPlayer.setTurn(true);
-                domHandler.updateTurnDisplay(newPlayer.getName());
-                domHandler.toggleGameBoard()
-                domHandler.displayHitShip(e.target, isHit);
-                if (pGameBoard.allShipsDestroyed()) {
-                    new Promise(function (resolve) {
-                        container.innerHTML = "";
-                        container.classList.toggle("game-start");
-                        resolve("done");
-                    }).then(() => {
-                        loadStartup()
-                    })
-                    domHandler.showWinner(newComputer.getName());
-                }
+            else if (pGameBoard.allShipsDestroyed()) {
+                new Promise(function (resolve) {
+                    container.innerHTML = "";
+                    container.classList.toggle("game-start");
+                    resolve("done");
+                }).then(() => {
+                    loadStartup()
+                })
+                domHandler.showWinner(newComputer.getName());
             }
+            // if (newPlayer.getTurn()) {
+            //     isHit = cGameBoard.receiveAttack(x.charAt(0), x.charAt(1));
+            //     newPlayer.setTurn(false);
+            //     domHandler.updateTurnDisplay(newComputer.getName());
+            //     domHandler.displayHitShip(e.target, isHit);
+            //     let computerHit = newComputer.playTurn(pGameBoard);
+            //     console.log(computerHit);
+            //     if (cGameBoard.allShipsDestroyed()) {
+            //         domHandler.showWinner(newPlayer.getName());
+            //         new Promise(function (resolve) {
+            //             container.innerHTML = "";
+            //             container.classList.toggle("game-start");
+            //             resolve("done");
+            //         }).then(() => {
+            //             loadStartup()
+            //         })
+            //     }
+            // }
+            // else {
+            //     isHit = newComputer.playTurn(pGameBoard);
+            //     console.log(isHit);
+            //     newPlayer.setTurn(true);
+            //     domHandler.updateTurnDisplay(newPlayer.getName());
+            //     domHandler.displayHitShip(e.target, isHit);
+            //     if (pGameBoard.allShipsDestroyed()) {
+            //         new Promise(function (resolve) {
+            //             container.innerHTML = "";
+            //             container.classList.toggle("game-start");
+            //             resolve("done");
+            //         }).then(() => {
+            //             loadStartup()
+            //         })
+            //         domHandler.showWinner(newComputer.getName());
+            //     }
+            // }
         }, { once: true });
     });
 }

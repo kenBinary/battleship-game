@@ -29,9 +29,9 @@ function updateGameBoard(pGameBoard, pGameBoardType) {
                     newCell.appendChild(newElement);
                     shipsPlaced.push(cell);
                 }
-                else {
-                    newCell.textContent = cell;
-                }
+                // else {
+                //     newCell.textContent = cell;
+                // }
             }
             newCell.setAttribute("data-coordinate", `${x}${y}`);
             newCell.classList.add("coordinate-cell");
@@ -79,12 +79,12 @@ function updateTurnDisplay(playerName) {
     const indicator = document.querySelector("#turn-indicator");
     indicator.textContent = playerName;
 }
-function toggleGameBoard() {
-    const pGameBoard = document.querySelector("#player-gameboard");
-    const cGameBoard = document.querySelector("#computer-gameboard");
-    pGameBoard.firstElementChild.classList.toggle("hidden");
-    cGameBoard.firstElementChild.classList.toggle("hidden");
-}
+// function toggleGameBoard() {
+//     const pGameBoard = document.querySelector("#player-gameboard");
+//     const cGameBoard = document.querySelector("#computer-gameboard");
+//     pGameBoard.firstElementChild.classList.toggle("hidden");
+//     cGameBoard.firstElementChild.classList.toggle("hidden");
+// }
 function showWinner(winnerName) {
     alert(`${winnerName} has won the game`)
 }
@@ -101,4 +101,25 @@ function displayHitShip(cellElement, isHit) {
         cellElement.appendChild(newImage);
     }
 }
-export { displayHitShip, updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner, toggleGameBoard }
+function displayHitShipComputer(coordinate, isHit) {
+    const playerGameBoard = Array.from(document.querySelector("#player-gameboard").children);
+    let newImage = new Image();
+    playerGameBoard.forEach((cell) => {
+        let cellCoordinate = cell.getAttribute("data-coordinate");
+        console.log()
+        if (cellCoordinate === `${coordinate[0]}${coordinate[1]}`) {
+            if (isHit) {
+                newImage.src = hitImage;
+                newImage.classList.add("hit");
+                cell.appendChild(newImage);
+            }
+            else {
+                newImage.src = missImage;
+                newImage.classList.add("miss");
+                cell.appendChild(newImage);
+            }
+        }
+    });
+
+}
+export { displayHitShipComputer, displayHitShip, updateGameBoard, updateTurnDisplay, updatePlayerNames, showWinner }
