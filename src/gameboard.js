@@ -28,7 +28,8 @@ const gameBoard = () => {
                 }
                 ships.push(shipObject);
                 shipsPlaced++;
-                return [gameBoard[x][y], gameBoard[x][y + 1], gameBoard[x][y + 2]];
+                // return [gameBoard[x][y], gameBoard[x][y + 1], gameBoard[x][y + 2]];
+                break;
             case "vertical":
                 let varOccupancy = x;
                 for (let z = 0; z < shipObject.shipLength; z++) {
@@ -39,7 +40,9 @@ const gameBoard = () => {
                 }
                 ships.push(shipObject);
                 shipsPlaced++;
-                return [gameBoard[x][y], gameBoard[x + 1][y], gameBoard[x + 2][y]];
+                break;
+                // ERROR: returns 3 coordinates even when shiplength is 2
+                // return [gameBoard[x][y], gameBoard[x + 1][y], gameBoard[x + 2][y]];
             default:
                 return false;
         }
